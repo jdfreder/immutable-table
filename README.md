@@ -1,5 +1,5 @@
 # immutable-table
-![Build Status](https://travis-ci.org/jdfreder/immutable-table.svg) [[![codecov](https://codecov.io/gh/jdfreder/immutable-table/branch/master/graph/badge.svg)](https://codecov.io/gh/jdfreder/immutable-table)
+![Build Status](https://travis-ci.org/jdfreder/immutable-table.svg) [![codecov](https://codecov.io/gh/jdfreder/immutable-table/branch/master/graph/badge.svg)](https://codecov.io/gh/jdfreder/immutable-table)
 
 Immutable.js powered Table data type.
 
