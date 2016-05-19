@@ -1,0 +1,16 @@
+sudo: false
+language: node_js
+node_js:
+- '5'
+env:
+  matrix:
+  - GROUP=unit
+  - GROUP=lint
+
+cache:
+  directories:
+    - node_modules
+
+script: travis_retry npm run test:$GROUP
+after_success:
+  - 'if [[ $GROUP == unit* ]]; then npm run coverage; fi'
