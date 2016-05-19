@@ -1,6 +1,6 @@
 {
   "name": "immutable-table",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Immutable.js powered Table data type",
   "main": "lib/index.js",
   "scripts": {
@@ -18,7 +18,9 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "babel": {
-    "presets": [ "es2015" ]
+    "presets": [
+      "es2015"
+    ]
   },
   "author": "Jonathan Frederic",
   "license": "MIT",
