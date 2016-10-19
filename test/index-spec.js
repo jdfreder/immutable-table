@@ -60,7 +60,7 @@ describe('Table', function() {
     });
     it('barfs out of bounds', function() {
       const t = make3x3();
-      expect(() => t.slice(2,2,3,3)).to.throw(Error);
+      expect(() => t.slice(3,3)).to.throw(Error);
     });
     it('fetch 1', function() {
       const t = make3x3();
@@ -76,15 +76,25 @@ describe('Table', function() {
       expect(u.height).to.equal(1);
       expect(u.getCell(0,0)).to.equal('9');
     });
-    it('can get bounded', function() {
+    it('can get subtable not going until the end of the table', function() {
       const t = make3x3();
-      const u = t.slice(0,0,-1,-1);
+      const u = t.slice(0,0,2,2);
       expect(u.width).to.equal(2);
       expect(u.height).to.equal(2);
       expect(u.getCell(0, 0)).to.equal('1');
       expect(u.getCell(1, 0)).to.equal('2');
       expect(u.getCell(0, 1)).to.equal('4');
       expect(u.getCell(1, 1)).to.equal('5');
+    });
+    it('can get padded subtable going past the end of the table', function() {
+      const t = make3x3();
+      const u = t.slice(2,2,2,2);
+      expect(u.width).to.equal(2);
+      expect(u.height).to.equal(2);
+      expect(u.getCell(0, 0)).to.equal('9');
+      expect(u.getCell(1, 0)).to.equal(undefined);
+      expect(u.getCell(0, 1)).to.equal(undefined);
+      expect(u.getCell(1, 1)).to.equal(undefined);
     });
   });
 

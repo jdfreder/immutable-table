@@ -150,39 +150,42 @@ export class Table extends InheritableMap {
 
   /**
    * Get a subset of the table
-   * @param  {number} startX the left most column index of the subset.  Negative
-   *                         numbers can be used to address columns from the
-   *                         right side of the table.
-   * @param  {number} startY the top most row of the subset.  Negative numbers
-   *                         can be used to address rows from the bottom side of
-   *                         the table.
-   * @param  {number} [endX] the right most column index, exclusive, of the
-   *                         subset.  Negative numbers can be used to address
-   *                         columns from the right side of the table.
-   * @param  {number} [endY] the bottom most row index, exclusive, of the
-   *                         subset.  Negative numbers can be used to address
-   *                         rows from the bottom side of the table.
-   * @return {Table}         subset
+   * @param  {number} startX   the left most column index of the subset.  Negative
+   *                           numbers can be used to address columns from the
+   *                           right side of the table.
+   * @param  {number} startY   the top most row of the subset.  Negative numbers
+   *                           can be used to address rows from the bottom side of
+   *                           the table.
+   * @param  {number} [width]  the width of the new subtable
+   * @param  {number} [height] the height of the new subtable
+   * @return {Table}           subset, padded if outside of table bounds
    */
-  slice(startX, startY, endX, endY) {
+  slice(startX, startY, width, height) {
     [startX, startY] = this._validate(startX, startY);
 
-    // If a right isn't defined, use the right edge and bottom edge for x/y lims
-    if (endX === undefined) {
-      endX = this.width;
-      endY = this.height;
+    // If a width or height isn't defined, use the right edge and bottom edge for x/y lims
+    let endX; let endY;
+    if (width === undefined || height === undefined) {
+      width = this.width - startX;
+      height = this.height - startY;
+      endX = this.width - 1;
+      endY = this.height - 1;
     } else {
+      endX = startX + width - 1;
+      endY = startY + height - 1;
+      endX = (endX > this.width) ? endX : this.width - 1;
+      endY = (endY > this.height) ? endY : this.height - 1;
       [endX, endY] = this._validate(endX, endY);
     }
 
     return this
-      .set('width', endX - startX)
-      .set('height', endY - startY)
+      .set('width', width)
+      .set('height', height)
       .update('data', data => data
-        .filter((values, fromX) => startX <= fromX && fromX < endX)
+        .filter((values, fromX) => startX <= fromX && fromX <= endX)
         .mapKeys(fromX => fromX - startX)
         .map(map => map
-          .filter((values, fromY) => startY <= fromY && fromY < endY)
+          .filter((values, fromY) => startY <= fromY && fromY <= endY)
           .mapKeys(fromY => fromY - startY)
         )
       );
