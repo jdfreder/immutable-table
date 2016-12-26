@@ -173,8 +173,8 @@ export class Table extends InheritableMap {
     } else {
       endX = startX + width - 1;
       endY = startY + height - 1;
-      endX = (endX > this.width) ? endX : this.width - 1;
-      endY = (endY > this.height) ? endY : this.height - 1;
+      endX = (endX < this.width) ? endX : this.width - 1;
+      endY = (endY < this.height) ? endY : this.height - 1;
       [endX, endY] = this._validate(endX, endY);
     }
 

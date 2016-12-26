@@ -88,9 +88,9 @@ describe('Table', function() {
     });
     it('can get padded subtable going past the end of the table', function() {
       const t = make3x3();
-      const u = t.slice(2,2,2,2);
-      expect(u.width).to.equal(2);
-      expect(u.height).to.equal(2);
+      const u = t.slice(2,2,3,3);
+      expect(u.width).to.equal(3);
+      expect(u.height).to.equal(3);
       expect(u.getCell(0, 0)).to.equal('9');
       expect(u.getCell(1, 0)).to.equal(undefined);
       expect(u.getCell(0, 1)).to.equal(undefined);
